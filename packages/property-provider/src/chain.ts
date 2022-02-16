@@ -16,6 +16,7 @@ export function chain<T>(...providers: Array<Provider<T>>): Provider<T> {
     let promise: Promise<T> = Promise.reject(new ProviderError("No providers in chain"));
     for (const provider of providers) {
       promise = promise.catch((err: any) => {
+        console.log("credential provider err: " + err);
         if (err?.tryNextLink) {
           return provider();
         }
